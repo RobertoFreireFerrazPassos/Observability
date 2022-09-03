@@ -29,6 +29,11 @@ Search in grafana:
 {Application="Gateway_Development"} | json | __error__  != "JSONParserErr"
 ```
 
+Note: Cancel button on swagger doesn't cancel the request. It must teste cancelation token using Postman!
+
+GET http://localhost:4001/WithoutCancellationToken
+GET http://localhost:4001/CancellationToken
+
 ## References:
 
 https://grafana.com/blog/2021/01/25/a-beginners-guide-to-distributed-tracing-and-how-it-can-increase-an-applications-performance/
