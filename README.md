@@ -6,6 +6,12 @@
 - Metrics
 - Tracing
 
+## Pending steps
+
+- Explain topics: Logs, Metrics and Tracing
+- Add logic to mantian traceKeyHeaderValue even if it is a complete new request
+- Create another api to be called by order
+
 ## Grafana Settup 
 
 ```
