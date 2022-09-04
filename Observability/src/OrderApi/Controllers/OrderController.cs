@@ -18,7 +18,7 @@ namespace OrderApi.Controllers
         {
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(12), token);
+                await Task.Delay(TimeSpan.FromSeconds(6), token);
 
                 return Ok("Order");
             }
@@ -26,9 +26,6 @@ namespace OrderApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
-
-            
         }
     }
 }

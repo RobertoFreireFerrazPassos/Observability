@@ -1,5 +1,8 @@
+using LogLibrary.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.AddLog();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -8,6 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseLog();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
