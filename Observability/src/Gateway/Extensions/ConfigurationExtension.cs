@@ -23,7 +23,7 @@ namespace Gateway.Extensions
             services.AddHttpClient<IOrderClient, OrderClient>(client =>
             {
                 client.BaseAddress = new Uri("http://orderapi:4002");
-                client.Timeout = TimeSpan.FromSeconds(10);
+                client.Timeout = TimeSpan.FromSeconds(14);
             });
         }
     }

@@ -14,9 +14,21 @@ namespace OrderApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> GetAsync(CancellationToken token)
         {
-            return Ok("Order");
+            try
+            {
+                await Task.Delay(TimeSpan.FromSeconds(12), token);
+
+                return Ok("Order");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+
+            
         }
     }
 }

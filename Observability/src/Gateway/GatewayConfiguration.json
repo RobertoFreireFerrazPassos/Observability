@@ -6,10 +6,6 @@
         "Routes": [
           {
             "Path": "/Order",
-            "Method": "POST"
-          },
-          {
-            "Path": "/Order",
             "Method": "GET"
           }
         ]

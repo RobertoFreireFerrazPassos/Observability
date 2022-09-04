@@ -52,8 +52,6 @@ namespace Gateway.Middlewares
             var response = await _orderClient.SendAsync(context);
 
             await context.CopyProxyHttpResponse(response);
-
-            await _next.Invoke(context);
         }
 
         private void ReturnBadRequestResponse(HttpContext context)
