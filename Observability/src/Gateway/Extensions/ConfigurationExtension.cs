@@ -1,4 +1,7 @@
-﻿namespace Gateway.Configuration
+﻿using Gateway.Clients;
+using Gateway.Configuration;
+
+namespace Gateway.Extensions
 {
     public static class ConfigurationExtension
     {
@@ -6,6 +9,7 @@
         {
             configurationBuilder.AddJsonFile("GatewayConfiguration.json");
         }
+
         public static GatewayConfig ConfigureSection(this IConfiguration configurationSection)
         {
             var section = configurationSection.GetSection(nameof(GatewayConfig));
@@ -15,6 +19,12 @@
         public static void AddGateConfiguration(this IServiceCollection services, GatewayConfig gatewayConfig)
         {
             services.AddSingleton(gatewayConfig);
+
+            services.AddHttpClient<IOrderClient, OrderClient>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:4002");
+                client.Timeout = TimeSpan.FromSeconds(10);
+            });
         }
     }
 }

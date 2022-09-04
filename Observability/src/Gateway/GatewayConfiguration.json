@@ -1,13 +1,18 @@
 ﻿{
   "GatewayConfig": {
-    "Routes": [
+    "Apis": [
       {
-        "Path": "/Order",
-        "Method": "POST"
-      },
-      {
-        "Path": "/Orders",
-        "Method": "GET"
+        "Name": "Order",
+        "Routes": [
+          {
+            "Path": "/Order",
+            "Method": "POST"
+          },
+          {
+            "Path": "/Orders",
+            "Method": "GET"
+          }
+        ]
       }
     ]
   }

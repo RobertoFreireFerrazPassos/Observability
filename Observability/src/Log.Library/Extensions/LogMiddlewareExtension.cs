@@ -5,9 +5,9 @@ namespace LogLibrary.Extensions
 {
     public static class LogMiddlewareExtension
     {
-        public static IApplicationBuilder UseLog(this IApplicationBuilder builder)
+        public static void UseLog(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<LogMiddleware>();
+            builder.UseMiddleware<LogMiddleware>();
         }
     }
 }
