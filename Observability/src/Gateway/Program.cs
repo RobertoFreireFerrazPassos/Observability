@@ -1,21 +1,26 @@
 using LogLibrary.Extensions;
+using Gateway.Middlewares;
+using Gateway.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.AddLog();
 
-// Add services to the container.
+builder.Configuration.ConfigureGate();
+var gatewayConfig = builder.Configuration.ConfigureSection();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddGateConfiguration(gatewayConfig);
 
 var app = builder.Build();
 
 app.UseLog();
+app.UseGateMiddleware();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

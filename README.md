@@ -21,18 +21,15 @@ click on "Save & test"
 
 ## Apis
 
-GateApi : http://localhost:4001/swagger/index.html
-OrderApi : 
+- GateApi : http://localhost:4001/swagger/index.html
+- OrderApi : 
 
 Search in grafana:
 ```
 {Application="Gateway_Development"} | json | __error__  != "JSONParserErr"
 ```
 
-Note: Cancel button on swagger doesn't cancel the request. It must teste cancelation token using Postman!
-
-GET http://localhost:4001/WithoutCancellationToken
-GET http://localhost:4001/CancellationToken
+Note: Cancel button on swagger doesn't cancel the request. It must test cancelation token using Postman!
 
 ## References:
 

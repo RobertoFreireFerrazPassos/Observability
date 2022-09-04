@@ -1,0 +1,14 @@
+﻿{
+  "GatewayConfig": {
+    "Routes": [
+      {
+        "Path": "/Order",
+        "Method": "POST"
+      },
+      {
+        "Path": "/Orders",
+        "Method": "GET"
+      }
+    ]
+  }
+}
