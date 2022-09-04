@@ -29,10 +29,12 @@ Search in grafana:
 {Application="Gateway_Development"} | json | __error__  != "JSONParserErr"
 ```
 
-Request: 
+Requests: 
 ```
 curl --location --request GET 'http://localhost:4001/Order' \
 --header 'X-Gate-Api: Order'
+
+curl --location --request GET 'http://localhost:4002/Order'
 ```
 
 Note: Cancel button on swagger doesn't cancel the request. It must test cancelation token using Postman!
