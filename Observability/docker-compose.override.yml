@@ -10,9 +10,21 @@ services:
     environment:
         loki: http://loki:3100
         ASPNETCORE_ENVIRONMENT: Development
-        ASPNETCORE_URLS: http://+:80
+        ASPNETCORE_URLS: http://+:4001
     ports:
-        - 4001:80
+        - 4001:4001
+    depends_on:
+        loki:
+            condition: service_healthy
+  
+  orderapi:
+    container_name: orderapi
+    environment:
+        loki: http://loki:3100
+        ASPNETCORE_ENVIRONMENT: Development
+        ASPNETCORE_URLS: http://+:4002
+    ports:
+        - 4002:4002
     depends_on:
         loki:
             condition: service_healthy
@@ -44,3 +56,4 @@ services:
     depends_on:
         loki:
             condition: service_healthy
+

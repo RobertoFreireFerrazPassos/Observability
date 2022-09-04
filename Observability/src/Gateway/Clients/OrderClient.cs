@@ -1,4 +1,5 @@
 ﻿using Gateway.Extensions;
+using System.Net;
 
 namespace Gateway.Clients
 {
@@ -13,14 +14,23 @@ namespace Gateway.Clients
 
         public async Task<HttpResponseMessage> SendAsync(HttpContext context)
         {
-            var uri = _httpClient.BaseAddress ?? throw new ArgumentNullException("No BaseAddress");
+            if (_httpClient.BaseAddress is null) throw new ArgumentNullException("No BaseAddress");
 
-            var result = await _httpClient.SendAsync(
-                context.CreateProxyHttpRequest(uri), 
-                HttpCompletionOption.ResponseHeadersRead, 
-                context.RequestAborted);
+            var uri = new Uri(_httpClient.BaseAddress.ToString() + context.Request.Path.ToString().Remove(0,1));
 
-            return result;
+            try
+            {
+                var result = await _httpClient.SendAsync(
+                    context.CreateProxyHttpRequest(uri),
+                    HttpCompletionOption.ResponseHeadersRead,
+                    context.RequestAborted);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }            
         }
     }
 }

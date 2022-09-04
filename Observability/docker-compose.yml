@@ -6,3 +6,10 @@ services:
     build:
       context: .
       dockerfile: src/Gateway/Dockerfile
+
+  orderapi:
+    image: ${DOCKER_REGISTRY-}orderapi
+    build:
+      context: .
+      dockerfile: src/OrderApi/Dockerfile
+
