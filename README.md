@@ -14,6 +14,11 @@ Metrics are the values represented as counts or measures that are often calculat
 
 Distributed tracing displays activity of a transaction or request as it flows through applications.
 
+## Next steps
+
+- Fix bug. control + F5 "// Bug"
+
+the bug is probably because the instance of result doesn't exists anymore in LogMiddleware 
 
 ## Grafana Settup 
 
