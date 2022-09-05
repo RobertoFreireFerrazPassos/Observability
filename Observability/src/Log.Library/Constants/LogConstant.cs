@@ -1,6 +1,6 @@
 ﻿namespace LogLibrary.Constants
 {
-    public static class RequestLogConstant
+    public static class LogConstant
     {
         public const string TraceIdHeader = "X-TraceId";
     }

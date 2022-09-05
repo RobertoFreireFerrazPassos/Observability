@@ -21,16 +21,19 @@ namespace CatalogApi.Controllers
             {
                 await Task.Delay(TimeSpan.FromSeconds(4), token);
 
-                var response = new ProductDto()
+                var result = new ProductDto()
                 {
                     SkuCode = "9123467",
                     Name = "Ball",
                     Price = "23.40"
                 };
 
-                _logRequestService.AdditionalData.Add("response", response);
+                _logRequestService.AdditionalData = new
+                {
+                    Reponse = result
+                };
 
-                return Ok(response);
+                return Ok(result);
             }
             catch (Exception ex)
             {

@@ -2,6 +2,6 @@
 {
     public interface ILogRequestService
     {
-        public Dictionary<string, object> AdditionalData { get; set; }
+        public object AdditionalData { get; set; }
     }
 }

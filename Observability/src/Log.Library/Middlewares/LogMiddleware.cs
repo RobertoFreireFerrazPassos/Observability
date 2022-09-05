@@ -23,9 +23,9 @@ namespace LogLibrary.Middlewares
 
             logRequestService.AdditionalData = new Dictionary<string, object>();
 
-            if (!context.Request.Headers.TryGetValue(RequestLogConstant.TraceIdHeader, out var traceKeyHeaderValue))
+            if (!context.Request.Headers.TryGetValue(LogConstant.TraceIdHeader, out var traceKeyHeaderValue))
             {
-                context.Request.Headers.Add(RequestLogConstant.TraceIdHeader, traceKey);
+                context.Request.Headers.Add(LogConstant.TraceIdHeader, traceKey);
             } 
             else
             {

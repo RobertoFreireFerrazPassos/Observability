@@ -5,7 +5,7 @@
         public string LogId { get; private set; }
         public DateTime TimeStamp { get; private set; }
         public string TraceKey { get; private set; }        
-        public Dictionary<string, object> AdditionalData { get; set; }
+        public object AdditionalData { get; set; }
         public long ElapsedMilliseconds { get; set; }
         public string? ExceptionMessage { get; set; }
         public string? ExceptionStackTrace { get; set; }
@@ -15,7 +15,6 @@
             LogId = Guid.NewGuid().ToString();
             TimeStamp = timeStamp;  
             TraceKey = traceKey;
-            AdditionalData = new Dictionary<string, object>();
         }
     }
 }

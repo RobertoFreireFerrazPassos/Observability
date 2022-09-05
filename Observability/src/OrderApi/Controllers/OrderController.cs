@@ -1,6 +1,8 @@
+using LogLibrary.Constants;
 using LogLibrary.Services;
 using Microsoft.AspNetCore.Mvc;
 using OrderApi.Clients;
+using OrderApi.Dtos;
 
 namespace OrderApi.Controllers
 {
@@ -25,19 +27,27 @@ namespace OrderApi.Controllers
         {
             try
             {
-                Request.Headers.TryGetValue("X-TraceId", out var traceIdHeader);
+                Request.Headers.TryGetValue(LogConstant.TraceIdHeader, out var traceIdHeader);
 
                 var product = await _catalogClient.GetAsync(token, traceIdHeader);
 
                 var result = new
                 {
-                    Product = product,
-                    OrderId = Guid.NewGuid()
+                    Reponse = new OrderDto()
+                    {
+                        Product = new ProductDto()
+                        {
+                            SkuCode = product.SkuCode,
+                            Name = product.Name,
+                            Price = product.Price
+                        },
+                        OrderId = Guid.NewGuid()
+                    },
+                    Request = new { }  
                 };
 
-                // Bug
-                //_logRequestService.AdditionalData.Add("response", result);
-                
+                _logRequestService.AdditionalData = result;
+
                 return Ok(result);
             }
             catch (Exception ex)
