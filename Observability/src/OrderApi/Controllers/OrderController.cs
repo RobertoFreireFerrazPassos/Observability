@@ -1,4 +1,6 @@
+using Log.Library.Services;
 using Microsoft.AspNetCore.Mvc;
+using OrderApi.Clients;
 
 namespace OrderApi.Controllers
 {
@@ -6,11 +8,16 @@ namespace OrderApi.Controllers
     [Route("[controller]")]
     public class OrderController : ControllerBase
     {
-        private readonly ILogger<OrderController> _logger;
+        private readonly ICatalogClient _catalogClient;
 
-        public OrderController(ILogger<OrderController> logger)
+        private ILogRequestService _logRequestService;
+
+        public OrderController(
+            ICatalogClient catalogClient,
+            ILogRequestService logRequestService)
         {
-            _logger = logger;
+            _catalogClient = catalogClient;
+            _logRequestService = logRequestService;
         }
 
         [HttpGet]
@@ -18,9 +25,13 @@ namespace OrderApi.Controllers
         {
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(6), token);
+                Request.Headers.TryGetValue("X-TraceId", out var traceIdHeader);
 
-                return Ok("Order");
+                var result = await _catalogClient.GetAsync(token, traceIdHeader);
+
+                _logRequestService.Log.AdditionalData.Add("response", result);
+
+                return Ok(result);
             }
             catch (Exception ex)
             {

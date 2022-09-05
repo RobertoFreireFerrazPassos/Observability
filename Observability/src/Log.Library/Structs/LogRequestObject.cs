@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Text.Json;
-
-namespace LogLibrary.Structs
+﻿namespace LogLibrary.Structs
 {
     public class LogRequestObject
     {

@@ -1,9 +1,9 @@
-﻿using LogLibrary.Constants;
+﻿using Log.Library.Services;
+using LogLibrary.Constants;
 using LogLibrary.Structs;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
 using System.Text.Json;
-using Serilog;
 
 namespace LogLibrary.Middlewares
 {
@@ -16,7 +16,7 @@ namespace LogLibrary.Middlewares
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, ILogRequestService logRequestService)
         {
             var utcNow = DateTime.UtcNow;
             var traceKey = Guid.NewGuid().ToString() + "_" + utcNow;
@@ -32,6 +32,8 @@ namespace LogLibrary.Middlewares
 
             var logRequestObject = new LogRequestObject(utcNow, traceKey);
 
+            logRequestService.Log = logRequestObject;
+
             var watch = Stopwatch.StartNew();
 
             try
@@ -40,16 +42,16 @@ namespace LogLibrary.Middlewares
             }
             catch (Exception ex)
             {
-                logRequestObject.ExceptionMessage = ex.Message;
-                logRequestObject.ExceptionStackTrace = ex.StackTrace;
+                logRequestService.Log.ExceptionMessage = ex.Message;
+                logRequestService.Log.ExceptionStackTrace = ex.StackTrace;
             }
             finally
             {
                 watch.Stop();
 
-                logRequestObject.ElapsedMilliseconds = watch.ElapsedMilliseconds;
+                logRequestService.Log.ElapsedMilliseconds = watch.ElapsedMilliseconds;
 
-                Log.Information(JsonSerializer.Serialize(logRequestObject));
+                Serilog.Log.Information(JsonSerializer.Serialize(logRequestObject));
             }
         }
     }

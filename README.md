@@ -9,8 +9,6 @@
 ## Pending steps
 
 - Explain topics: Logs, Metrics and Tracing
-- Add logic to mantian traceKeyHeaderValue even if it is a complete new request
-- Create another api to be called by order
 
 ## Grafana Settup 
 
@@ -29,7 +27,10 @@ click on "Save & test"
 
 Search in grafana:
 ```
-{Application=~"Gateway_Development|OrderApi_Development"} | json | __error__  != "JSONParserErr"
+{Application=~"Gateway_Development|OrderApi_Development|CatalogApi_Development"} | json | __error__  != "JSONParserErr"
+
+Or, after knowing the TraceKey
+{Application=~"Gateway_Development|OrderApi_Development|CatalogApi_Development"} | json | __error__  != "JSONParserErr" | TraceKey="f3e67c7e-0292-44e5-8a36-3cf07d54921f_09/05/2022 01:07:40"
 ```
 
 Request via Gate: 

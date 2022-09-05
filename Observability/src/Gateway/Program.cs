@@ -4,6 +4,7 @@ using LogLibrary.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.AddLog();
+builder.Services.AddLogService();
 
 builder.Configuration.ConfigureGate();
 var gatewayConfig = builder.Configuration.ConfigureSection();
