@@ -1,3 +1,5 @@
+using CatalogApi.Dtos;
+using LogLibrary.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CatalogApi.Controllers
@@ -6,6 +8,12 @@ namespace CatalogApi.Controllers
     [Route("[controller]")]
     public class CatalogController : ControllerBase
     {
+        private ILogRequestService _logRequestService;
+        public CatalogController(ILogRequestService logRequestService)
+        {
+            _logRequestService = logRequestService;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Get(CancellationToken token)
         {
@@ -13,7 +21,16 @@ namespace CatalogApi.Controllers
             {
                 await Task.Delay(TimeSpan.FromSeconds(4), token);
 
-                return Ok("Product");
+                var response = new ProductDto()
+                {
+                    SkuCode = "9123467",
+                    Name = "Ball",
+                    Price = "23.40"
+                };
+
+                _logRequestService.AdditionalData.Add("response", response);
+
+                return Ok(response);
             }
             catch (Exception ex)
             {

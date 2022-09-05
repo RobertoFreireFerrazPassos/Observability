@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Primitives;
+using OrderApi.Dtos;
+using System.Text.Json;
 
 namespace OrderApi.Clients
 {
@@ -11,7 +13,7 @@ namespace OrderApi.Clients
             _httpClient = httpClient;
         }
 
-        public async Task<string> GetAsync(CancellationToken token, StringValues header)
+        public async Task<ProductDto> GetAsync(CancellationToken token, StringValues header)
         {
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, "/Catalog"))
             {
@@ -19,7 +21,14 @@ namespace OrderApi.Clients
 
                 using (var response = await _httpClient.SendAsync(requestMessage, token))
                 {
-                    return await response.Content.ReadAsStringAsync();
+                    var responseAsString = await response.Content.ReadAsStringAsync();
+
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                    };
+
+                    return JsonSerializer.Deserialize<ProductDto>(responseAsString, options);
                 }
             }
         }

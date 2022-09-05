@@ -1,14 +1,9 @@
 ﻿using LogLibrary.Structs;
 
-namespace Log.Library.Services
+namespace LogLibrary.Services
 {
     public class LogRequestService : ILogRequestService
     {
-        private LogRequestObject log;
-
-        LogRequestObject ILogRequestService.Log { 
-            get => log;
-            set => log = value;
-        }
+        public Dictionary<string, object> AdditionalData { get; set; }
     }
 }

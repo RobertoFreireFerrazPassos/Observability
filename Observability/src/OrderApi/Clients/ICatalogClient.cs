@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.Primitives;
+using OrderApi.Dtos;
 
 namespace OrderApi.Clients
 {
     public interface ICatalogClient
     {
-        Task<string> GetAsync(CancellationToken token, StringValues header);
+        Task<ProductDto> GetAsync(CancellationToken token, StringValues header);
     }
 }

@@ -1,4 +1,4 @@
-using Log.Library.Services;
+using LogLibrary.Services;
 using Microsoft.AspNetCore.Mvc;
 using OrderApi.Clients;
 
@@ -27,10 +27,17 @@ namespace OrderApi.Controllers
             {
                 Request.Headers.TryGetValue("X-TraceId", out var traceIdHeader);
 
-                var result = await _catalogClient.GetAsync(token, traceIdHeader);
+                var product = await _catalogClient.GetAsync(token, traceIdHeader);
 
-                _logRequestService.Log.AdditionalData.Add("response", result);
+                var result = new
+                {
+                    Product = product,
+                    OrderId = Guid.NewGuid()
+                };
 
+                // Bug
+                //_logRequestService.AdditionalData.Add("response", result);
+                
                 return Ok(result);
             }
             catch (Exception ex)

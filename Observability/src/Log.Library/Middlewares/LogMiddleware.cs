@@ -1,4 +1,4 @@
-﻿using Log.Library.Services;
+﻿using LogLibrary.Services;
 using LogLibrary.Constants;
 using LogLibrary.Structs;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +21,8 @@ namespace LogLibrary.Middlewares
             var utcNow = DateTime.UtcNow;
             var traceKey = Guid.NewGuid().ToString() + "_" + utcNow;
 
+            logRequestService.AdditionalData = new Dictionary<string, object>();
+
             if (!context.Request.Headers.TryGetValue(RequestLogConstant.TraceIdHeader, out var traceKeyHeaderValue))
             {
                 context.Request.Headers.Add(RequestLogConstant.TraceIdHeader, traceKey);
@@ -30,9 +32,7 @@ namespace LogLibrary.Middlewares
                 traceKey = traceKeyHeaderValue;
             }
 
-            var logRequestObject = new LogRequestObject(utcNow, traceKey);
-
-            logRequestService.Log = logRequestObject;
+            var log = new LogRequestObject(utcNow, traceKey);
 
             var watch = Stopwatch.StartNew();
 
@@ -42,16 +42,17 @@ namespace LogLibrary.Middlewares
             }
             catch (Exception ex)
             {
-                logRequestService.Log.ExceptionMessage = ex.Message;
-                logRequestService.Log.ExceptionStackTrace = ex.StackTrace;
+                log.ExceptionMessage = ex.Message;
+                log.ExceptionStackTrace = ex.StackTrace;
             }
             finally
             {
                 watch.Stop();
 
-                logRequestService.Log.ElapsedMilliseconds = watch.ElapsedMilliseconds;
+                log.ElapsedMilliseconds = watch.ElapsedMilliseconds;
+                log.AdditionalData = logRequestService.AdditionalData;
 
-                Serilog.Log.Information(JsonSerializer.Serialize(logRequestObject));
+                Serilog.Log.Information(JsonSerializer.Serialize(log));
             }
         }
     }

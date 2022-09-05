@@ -1,4 +1,4 @@
-﻿using Log.Library.Services;
+﻿using LogLibrary.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LogLibrary.Extensions

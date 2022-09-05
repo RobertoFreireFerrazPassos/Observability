@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<ICatalogClient, CatalogClient>(client =>
 {
     client.BaseAddress = new Uri("http://catalogapi:4003");
-    client.Timeout = TimeSpan.FromSeconds(10);
+    client.Timeout = TimeSpan.FromSeconds(30);
 });
 
 var app = builder.Build();
