@@ -10,11 +10,9 @@ Logs are structured or unstructured text records of discreet events that occurre
 
 Metrics are the values represented as counts or measures that are often calculated or aggregated over a period of time. 
 
-Metrics can originate from a variety of sources, including infrastructure, hosts, services, cloud platforms, and external sources.
-
 - Distributed tracing
 
-Distributed tracing displays activity of a transaction or request as it flows through applications and shows how services connect, including code-level details.
+Distributed tracing displays activity of a transaction or request as it flows through applications.
 
 
 ## Grafana Settup 
