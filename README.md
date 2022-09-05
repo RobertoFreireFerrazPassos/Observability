@@ -14,10 +14,6 @@ Metrics are the values represented as counts or measures that are often calculat
 
 Distributed tracing displays activity of a transaction or request as it flows through applications.
 
-## Next steps
-
-- 
-
 ## Grafana Settup 
 
 ```
